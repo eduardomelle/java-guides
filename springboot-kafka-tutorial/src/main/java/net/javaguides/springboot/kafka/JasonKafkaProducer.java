@@ -22,7 +22,7 @@ public class JasonKafkaProducer {
 
     public void sendMessage(User data) {
         LOGGER.info(String.format("Message sent %s", data.toString()));
-        Message<User> message = MessageBuilder.withPayload(data).setHeader(KafkaHeaders.TOPIC, "javaguides").build();
+        Message<User> message = MessageBuilder.withPayload(data).setHeader(KafkaHeaders.TOPIC, "javaguides_json").build();
         this.kafkaTemplate.send(message);
     }
 
