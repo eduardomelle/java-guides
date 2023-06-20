@@ -1,6 +1,6 @@
 package net.javaguides.springboot.controller;
 
-import net.javaguides.springboot.kafka.JasonKafkaProducer;
+import net.javaguides.springboot.kafka.JsonKafkaProducer;
 import net.javaguides.springboot.payload.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,15 +16,15 @@ public class JsonMessageController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(JsonMessageController.class);
 
-    private final JasonKafkaProducer jasonKafkaProducer;
+    private final JsonKafkaProducer jsonKafkaProducer;
 
-    public JsonMessageController(JasonKafkaProducer jasonKafkaProducer) {
-        this.jasonKafkaProducer = jasonKafkaProducer;
+    public JsonMessageController(JsonKafkaProducer jasonKafkaProducer) {
+        this.jsonKafkaProducer = jasonKafkaProducer;
     }
 
     @PostMapping("/publish")
     public ResponseEntity<String> publish(@RequestBody User user) {
-        this.jasonKafkaProducer.sendMessage(user);
+        this.jsonKafkaProducer.sendMessage(user);
         return ResponseEntity.ok("Json message sent to kafka topic.");
     }
 
