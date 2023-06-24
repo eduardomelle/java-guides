@@ -2,9 +2,13 @@ package net.javaguides.springboot;
 
 import com.launchdarkly.eventsource.EventHandler;
 import com.launchdarkly.eventsource.MessageEvent;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.kafka.core.KafkaTemplate;
 
 public class WikimediaChangesHandler implements EventHandler {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(WikimediaChangesHandler.class);
 
     private final KafkaTemplate<String, String> kafkaTemplate;
 
@@ -27,7 +31,8 @@ public class WikimediaChangesHandler implements EventHandler {
 
     @Override
     public void onMessage(String s, MessageEvent messageEvent) throws Exception {
-
+        LOGGER.info(String.format("Event data -> %s", messageEvent.getData()));
+        this.kafkaTemplate.send(topic, messageEvent.getData());
     }
 
     @Override
